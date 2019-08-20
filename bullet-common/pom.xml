@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, bingzo All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the bingzo.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: bingzo (service@bingzo.cn)
+  ~
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bingzo</groupId>
+		<artifactId>bullet</artifactId>
+		<version>1.1.0</version>
+	</parent>
+
+	<artifactId>bullet-common</artifactId>
+	<packaging>pom</packaging>
+
+	<description>bullet 公共聚合模块</description>
+
+	<modules>
+		<module>bullet-common-bom</module>
+		<module>bullet-common-core</module>
+		<module>bullet-common-data</module>
+		<module>bullet-common-log</module>
+		<module>bullet-common-minio</module>
+		<module>bullet-common-security</module>
+		<module>bullet-common-swagger</module>
+		<module>bullet-common-datasource</module>
+	</modules>
+</project>

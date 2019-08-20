@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.bingzo.bullet.common.log.LogAutoConfiguration
+org.springframework.context.ApplicationContextInitializer=\
+    com.bingzo.bullet.common.log.init.ApplicationLoggerInitializer

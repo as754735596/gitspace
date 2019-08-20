@@ -1,0 +1,128 @@
+server:
+  port: 3001
+
+security:
+  oauth2:
+    client:
+      # 默认放行url,如果子模块重写这里的配置就会被覆盖
+      ignore-urls:
+        - /actuator/**
+        - /v2/api-docs
+        - /swagger-ui.html
+        - /swagger-resources/**
+        - /webjars/**
+        - /druid/**
+        - /favicon.ico
+        - /code
+
+
+spring:
+  redis:
+      password:
+      host: ${REDIS-HOST:bullet-redis}
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${MYSQL-USER:root}
+      password: ${MYSQL-PWD:123456}
+      url: jdbc:mysql://${MYSQL-HOST:bullet-mysql}:${MYSQL-PORT:3306}/${MYSQL-DB:bullet}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+      filters: stat,wall
+  freemarker:
+    allow-request-override: false
+    allow-session-override: false
+    cache: true
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: true
+    prefer-file-system-access: true
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+  quartz:
+      #相关属性配置
+      properties:
+        org:
+          quartz:
+            scheduler:
+              instanceName: clusteredScheduler
+              instanceId: AUTO
+            jobStore:
+              class: org.quartz.impl.jdbcjobstore.JobStoreTX
+              driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+              tablePrefix: QRTZ_
+              isClustered: true
+              clusterCheckinInterval: 10000
+              useProperties: false
+            threadPool:
+              class: org.quartz.simpl.SimpleThreadPool
+              threadCount: 50
+              threadPriority: 5
+              threadsInheritContextClassLoaderOfInitializingThread: true
+      #数据库方式
+      job-store-type: jdbc
+
+jasypt:
+  encryptor:
+    password: missile
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+
+
+swagger:
+  title: BULLET Swagger API
+  license: Powered By BULLET
+  licenseUrl: https://bingzo.com/
+  terms-of-service-url: https://bingzo.com/
+  contact:
+    email: service@bingzo.cn
+    url: https://bingzo.com/about.html
+  authorization:
+    name: BULLET OAuth
+    auth-regex: ^.*$
+    authorization-scope-list:
+      - scope: server
+        description: server all
+    token-url-list:
+      - http://${GATEWAY-HOST:missile-gateway}:${GATEWAY-PORT:9999}/auth/oauth/token
+# 文件系统 (提供测试环境，不要乱传)
+minio:
+  url: http://minio.bingzo.com
+  access-key: ENC(hWeKjkHAlRwzgNb3WQr43w==)
+  secret-key: ENC(hWeKjkHAlRwzgNb3WQr43w==)
+
+# Logger Config
+logging:
+  level:
+    com.bingzo.buulet.**.mapper: debug
+
+# 租户表维护
+missile:
+  tenant:
+    column: tenant_id
+    tables:
+      - sys_user
+      - sys_role
+      - sys_dept
+      - sys_log
+      - sys_social_details
+      - sys_dict
+      - sys_dict_item
+      - sys_public_param
+      - sys_log
+      - sys_datasource_conf

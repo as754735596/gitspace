@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.springframework.cloud.openfeign.BulletHystrixFeignTargeterConfiguration,\
+  com.bingzo.bullet.common.security.component.GlobalExceptionHandlerResolver,\
+  com.bingzo.bullet.common.security.service.BulletUserDetailsServiceImpl

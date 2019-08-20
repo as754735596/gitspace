@@ -1,0 +1,8 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.bingzo.bullet.common.data.cache.RedisTemplateConfig,\
+    com.bingzo.bullet.common.data.cache.RedisCacheManagerConfig,\
+    com.bingzo.bullet.common.data.cache.RedisCacheAutoConfiguration,\
+    com.bingzo.bullet.common.data.tenant.BulletTenantConfigProperties,\
+    com.bingzo.bullet.common.data.tenant.TenantContextHolderFilter,\
+    com.bingzo.bullet.common.data.tenant.BulletFeignTenantConfiguration,\
+    com.bingzo.bullet.common.data.mybatis.MybatisPlusConfig

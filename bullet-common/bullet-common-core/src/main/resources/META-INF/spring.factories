@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.bingzo.bullet.common.core.config.JacksonConfig,\
+  com.bingzo.bullet.common.core.config.MessageSourceConfig,\
+  com.bingzo.bullet.common.core.config.RestTemplateConfig,\
+  com.bingzo.bullet.common.core.util.SpringContextHolder

@@ -1,0 +1,142 @@
+# 使用说明 V3.0.0
+# 1. 使用docker-compose  宿主机不需要配置host来发现
+# 2. 无需修改源码，根目录  docker-compose up 即可
+# 3. 静静等待服务启动
+
+version: '2'
+services:
+  missile-mysql:
+    build:
+      context: ./
+      dockerfile: ./db/Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    container_name: missile-mysql
+    image: missile-mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./missile-mysql:/var/lib/mysql
+    command: --lower_case_table_names=1
+
+  missile-zookeeper:
+    image: zookeeper:3.4.13
+    restart: always
+
+  missile-redis:
+    image: redis:5.0.4
+    restart: always
+    container_name: missile-redis
+    ports:
+      - 6379:6379
+
+  missile-minio:
+    image: minio/minio
+    command: server /data
+    ports:
+      - 9000:9000
+    volumes:
+      - ./data:/data
+      - ./config:/root/.minio
+    environment:
+      - MINIO_DOMAIN=missile-minio
+      - MINIO_ACCESS_KEY=bingzo
+      - MINIO_SECRET_KEY=bingzo
+
+  missile-register:
+    build:
+      context: ./
+      dockerfile: ./missile-register/Dockerfile
+    restart: always
+    container_name: missile-register
+    image: missile-register
+    ports:
+      - 8848:8848
+
+  missile-gateway:
+    build:
+      context: ./
+      dockerfile: ./missile-gateway/Dockerfile
+    restart: always
+    container_name: missile-gateway
+    image: missile-gateway
+    ports:
+      - 9999:9999
+
+  missile-auth:
+    build:
+      context: ./
+      dockerfile: ./missile-auth/Dockerfile
+    restart: always
+    container_name: missile-auth
+    image: missile-auth
+
+  missile-upms:
+    build:
+      context: ./
+      dockerfile: ./missile-upms/missile-upms-biz/Dockerfile
+    restart: always
+    container_name: missile-upms
+    image: missile-upms
+
+  missile-monitor:
+    build:
+      context: ./
+      dockerfile: ./missile-visual/missile-monitor/Dockerfile
+    restart: always
+    image: missile-monitor
+    container_name: missile-monitor
+    ports:
+      - 5001:5001
+
+  missile-daemon-quartz:
+    build:
+      context: ./
+      dockerfile: ./missile-visual/missile-daemon-quartz/Dockerfile
+    restart: always
+    image: missile-daemon-quartz
+    container_name: missile-daemon-quartz
+
+  missile-daemon-elastic-job:
+    build:
+      context: ./
+      dockerfile: ./missile-visual/missile-daemon-elastic-job/Dockerfile
+    restart: always
+    image: missile-daemon-elastic-job
+    container_name: missile-daemon-elastic-job
+
+  missile-codegen:
+    build:
+      context: ./
+      dockerfile: ./missile-visual/missile-codegen/Dockerfile
+    restart: always
+    image: missile-codegen
+    container_name: missile-codegen
+
+  missile-mp-manager:
+    build:
+      context: ./
+      dockerfile: ./missile-visual/missile-mp-manager/Dockerfile
+    restart: always
+    image: missile-mp-manager
+    container_name: missile-mp-manager
+
+  missile-activiti:
+    build:
+      context: ./
+      dockerfile: ./missile-visual/missile-activiti/Dockerfile
+    restart: always
+    image: missile-activiti
+    container_name: missile-activiti
+
+  missile-tx-manager:
+    build:
+      context: ./
+      dockerfile: ./missile-visual/missile-tx-manager/Dockerfile
+    restart: always
+    image: missile-tx-manager
+    container_name: missile-tx-manager
+    ports:
+      - 5004:5004
+      - 9998:9998
