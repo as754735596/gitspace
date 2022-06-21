@@ -19,7 +19,7 @@
 		<bullet.version>1.1.0</bullet.version>
 		<mybatis-plus.version>3.1.0</mybatis-plus.version>
 		<druid.version>1.1.17</druid.version>
-		<mysql.connector.version>8.0.16</mysql.connector.version>
+		<mysql.connector.version>8.0.28</mysql.connector.version>
 		<swagger.core.version>1.5.22</swagger.core.version>
 		<mp.weixin.version>3.4.0</mp.weixin.version>
 	</properties>
